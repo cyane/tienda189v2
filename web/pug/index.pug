@@ -1,0 +1,54 @@
+include data
+doctype html
+html(lang='es')
+    head
+        title Tienda Harnina
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width,initial-scale=1, user-scalable=no')
+        link(type='text/css', rel='stylesheet', href='../css/catalogoEstilo.css')
+        link(type='text/css', rel='stylesheet', href='../css/miscontenedores.css')
+        link(href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet")
+    body
+        header.cabecera
+            a.subtitulo(href="catalogo.html") DAM: ACCESO A DATOS
+            h5.titulo #{titulo_cabecera_principal}
+        div.contenido01
+            div.medio.dadoCatalogo
+                div.dado.d1.informatica
+            div.medio.dadoCatalogo
+                div.dado.d3.harnina
+        div.contenido01
+            form#client_register(method='get' action='Valida')
+                div.menu.s3.caja03
+                    h4 New Client
+                    div#div_clientFirstName
+                        label(for='clientFirstName').labelInput First name:
+                        input#clientFirstName.etiqueta.s8(type = 'text' name = 'clientFirstName' data-functioncallback = "ValidacionExpresionRegular.validarLetrasSinEspacio" size="24" minlength=3  maxlength=80 required placeholder="input your FirstName" title="3 to 50 characters")
+                    div#div_clientLastName
+                        label(for='clientLastName').labelInput Last name:
+                        input#clientLastName.etiqueta.s8(type = 'text' data-functioncallback = "ValidacionExpresionRegular.validarLetrasConEspacio" minlength=5  maxlength=100 required placeholder="input your LastName" title="3 to 70 characters")
+                    div#div_clientCP
+                        label(for='clientCP').labelInput C P:
+                        input#clientCP.etiqueta.s8(type = 'text' data-functioncallback = "ValidacionExpresionRegular.validarCodigoPostal"  required placeholder="input your cp" title="5 characters")
+                    div#div_clientSexo
+                        label(for='clientSexo').labelInput Sexo:
+                        select#clientSexo.etiqueta.s8.file(name='clientSexo' data-functioncallback = "ValidarListaValores.validarSexo")
+                            option(value='') -- Select Sexo --
+                            option(value='m') Hombre
+                            option(value='f') Mujer
+                    div#div_clientImage.fileinputs.etiqueta.s8
+                        input#clientImage.etiqueta.s8.file(type = 'file' data-functioncallback = "ValidarFicheroName.validarImagenName" required  accept="image/png, image/jpeg" placeholder="input your Avatar" title="3 to 120 characters")
+                        div.fakefile
+                            label(for='clientImage').labelInput Elije tu foto
+                            input#idFile
+                    div#alertaError.etiqueta.errorColor Error:
+                    button#submit(type='submit') Enviar
+script(src="../js/jscss/dado.js")
+script(src="../js/jsStore/store.js")
+script(src="../js/jsStore/color.js")
+script(src="../js/jsStore/lista.js")
+script(src="../js/jsStore/file.js")
+script(src="../js/jsStore/error.js")
+script(src="../js/jsStore/submit.js")
+script(src="../js/jsStore/validate.js")
+script(src="../js/jsStore/init.js")

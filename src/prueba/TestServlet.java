@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet(name = "TestServlet", urlPatterns = {"/test"})
+@WebServlet("/test")
 public class TestServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
 
     private static final long serialVersionUID = 1L;
@@ -23,7 +23,7 @@ public class TestServlet extends javax.servlet.http.HttpServlet implements javax
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
-        performTask(request, response);
+        performTask(request, response); //vete a get
     }
 
     private void performTask(HttpServletRequest request, HttpServletResponse response) throws ServletException,

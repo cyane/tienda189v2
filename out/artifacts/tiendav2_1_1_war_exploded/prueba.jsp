@@ -28,7 +28,7 @@
         </div>
     </c:if>
 
-        <form role="form" method="post" action="/test">
+        <form role="form" method="get" action="/test">
             <div class="form-group">
                 <label for="action">Action</label>
                 <input type="text" class="form-control" name="action"

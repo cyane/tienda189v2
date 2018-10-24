@@ -1,5 +1,11 @@
 package controller;
 
+
+
+import validate.ValidacionCadenaSinEspacio;
+
+import validate.ValidacionExpresionRegular;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,10 +17,12 @@ import java.io.IOException;
 public class ValidarClientInsert extends HttpServlet {
     private static final long serialVersionUID = 1L;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-            System.out.println(request.getParameter("clientFirstName"));
+           String clientFirstName = request.getParameter("clientFirstName");
+        ValidacionCadenaSinEspacio validacionCadenaSinEspacio = new ValidacionCadenaSinEspacio(clientFirstName);
+           System.out.println(validacionCadenaSinEspacio.validar(validacionCadenaSinEspacio.getPatron(),validacionCadenaSinEspacio.getValue()));
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println(request.getParameter("clientFirstName"));
+            doPost(request,response);
     }
 }

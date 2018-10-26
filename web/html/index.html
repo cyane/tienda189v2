@@ -21,12 +21,12 @@
       </div>
     </div>
     <div class="contenido01">
-      <form id="client_register" method="get" action="/vali">
+      <form id="client_register" method="POST" action="/vali">
         <div class="menu s3 caja03">
           <h4>New Client</h4>
           <div id="div_clientFirstName">
             <label class="labelInput" for="clientFirstName">First name:</label>
-            <input class="etiqueta s8" id="clientFirstName" type="text" name="clientFirstName" data-functioncallback="ValidacionExpresionRegular.validarLetrasSinEspacio" size="24" minlength="3" maxlength="80" required placeholder="input your FirstName" title="3 to 50 characters">
+            <input class="etiqueta s8" id="clientFirstName" type="text" data-functioncallback="ValidacionExpresionRegular.validarLetrasSinEspacio" size="24" minlength="3" maxlength="80" required placeholder="input your FirstName" title="3 to 50 characters">
           </div>
           <div id="div_clientLastName">
             <label class="labelInput" for="clientLastName">Last name:</label>
@@ -35,6 +35,23 @@
           <div id="div_clientCP">
             <label class="labelInput" for="clientCP">C P:</label>
             <input class="etiqueta s8" id="clientCP" type="text" data-functioncallback="ValidacionExpresionRegular.validarCodigoPostal" required placeholder="input your cp" title="5 characters">
+          </div>
+          <div id="div_numeroMovil">
+            <label for="numeroMovil">Numero móvil:</label>
+            <select id="prefijo"></select>
+            <input class="etiqueta s8" id="numeroMovil" type="tel" data-functioncallback="ValidacionExpresionRegular.validarNumeroMovil" size="20" required placeholder="longitud" title="">
+          </div>
+          <div id="div_emailCliente">
+            <label for="emailCliente">Email:</label>
+            <input class="etiqueta s8" id="emailCliente" type="text" data-functioncallback="ValidacionExpresionRegular.validarEmail" required placeholder="input your Email" title="Email">
+          </div>
+          <div id="div_dniCliente">
+            <label for="dniCliente">dni:</label>
+            <input class="etiqueta s8" id="dniCliente" type="text" data-functioncallback="ValidacionExpresionRegular.validarDni" required placeholder="input your dni" title="dni">
+          </div>
+          <div id="div_password">
+            <label for="password">Password:</label>
+            <input class="etiqueta s8" id="password" type="password" placeholder="Contraseña" data-functioncallback="ValidacionExpresionRegular.validarPassword">
           </div>
           <div id="div_clientSexo">
             <label class="labelInput" for="clientSexo">Sexo:</label>
@@ -59,7 +76,9 @@
   </body>
 </html>
 <script src="../js/jscss/dado.js"></script>
+<script src="../js/jsStore/prefijos.js"></script>
 <script src="../js/jsStore/store.js"></script>
+<script src="../js/jsStore/utiles.js"></script>
 <script src="../js/jsStore/color.js"></script>
 <script src="../js/jsStore/lista.js"></script>
 <script src="../js/jsStore/file.js"></script>

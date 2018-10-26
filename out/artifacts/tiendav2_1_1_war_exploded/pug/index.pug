@@ -18,18 +18,31 @@ html(lang='es')
             div.medio.dadoCatalogo
                 div.dado.d3.harnina
         div.contenido01
-            form#client_register(method='get' action='Valida')
+            form#client_register(method='POST' action='/vali')
                 div.menu.s3.caja03
                     h4 New Client
                     div#div_clientFirstName
                         label(for='clientFirstName').labelInput First name:
-                        input#clientFirstName.etiqueta.s8(type = 'text' name = 'clientFirstName' data-functioncallback = "ValidacionExpresionRegular.validarLetrasSinEspacio" size="24" minlength=3  maxlength=80 required placeholder="input your FirstName" title="3 to 50 characters")
+                        input#clientFirstName.etiqueta.s8(type = 'text' data-functioncallback = "ValidacionExpresionRegular.validarLetrasSinEspacio" size="24" minlength=3  maxlength=80 required placeholder="input your FirstName" title="3 to 50 characters")
                     div#div_clientLastName
                         label(for='clientLastName').labelInput Last name:
                         input#clientLastName.etiqueta.s8(type = 'text' data-functioncallback = "ValidacionExpresionRegular.validarLetrasConEspacio" minlength=5  maxlength=100 required placeholder="input your LastName" title="3 to 70 characters")
                     div#div_clientCP
                         label(for='clientCP').labelInput C P:
                         input#clientCP.etiqueta.s8(type = 'text' data-functioncallback = "ValidacionExpresionRegular.validarCodigoPostal"  required placeholder="input your cp" title="5 characters")
+                    div#div_numeroMovil
+                        label(for='numeroMovil') Numero móvil:
+                        select#prefijo
+                        input#numeroMovil.etiqueta.s8(type = 'tel' data-functioncallback = "ValidacionExpresionRegular.validarNumeroMovil" size="20" required placeholder="longitud" title="")
+                    div#div_emailCliente
+                        label(for='emailCliente') Email:
+                        input#emailCliente.etiqueta.s8(type = 'text' data-functioncallback = "ValidacionExpresionRegular.validarEmail" required placeholder="input your Email" title="Email")
+                    div#div_dniCliente
+                        label(for='dniCliente') dni:
+                        input#dniCliente.etiqueta.s8(type = 'text' data-functioncallback = "ValidacionExpresionRegular.validarDni" required placeholder="input your dni" title="dni")
+                    div#div_password
+                        label(for='password') Password:
+                        input#password.etiqueta.s8(type = 'password' placeholder="Contraseña" data-functioncallback = 'ValidacionExpresionRegular.validarPassword')
                     div#div_clientSexo
                         label(for='clientSexo').labelInput Sexo:
                         select#clientSexo.etiqueta.s8.file(name='clientSexo' data-functioncallback = "ValidarListaValores.validarSexo")
@@ -44,7 +57,9 @@ html(lang='es')
                     div#alertaError.etiqueta.errorColor Error:
                     button#submit(type='submit') Enviar
 script(src="../js/jscss/dado.js")
+script(src="../js/jsStore/prefijos.js")
 script(src="../js/jsStore/store.js")
+script(src="../js/jsStore/utiles.js")
 script(src="../js/jsStore/color.js")
 script(src="../js/jsStore/lista.js")
 script(src="../js/jsStore/file.js")

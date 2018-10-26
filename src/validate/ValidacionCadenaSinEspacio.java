@@ -1,22 +1,24 @@
 package validate;
 
-public class ValidacionCadenaSinEspacio extends  ValidacionExpresionRegular{
+public class ValidacionCadenaSinEspacio extends ValidacionRegularExpression implements ValidacionFileName.IValidacion {
 
-        private String patron = "w.*";
-        private String value;
+    private String patron = "[^\\\\s\\\"']+|\\\"([^\\\"]*)\\\"|'([^']*)'";
+    private static final String mensajeError = "La cadena contiene espacios";
 
-        public ValidacionCadenaSinEspacio(String value) {
+    private String value;
 
-            this.value = value;
-
-        }
-
-    public String getPatron() {
-        return patron;
+    public ValidacionCadenaSinEspacio(String value) {
+        this.value = value;
     }
 
-    public String getValue() {
-        return value;
+    @Override
+    public boolean validar() {
+        return super.validar(value, patron);
     }
+
+    @Override
+    public String getError() {
+        return mensajeError;
+    }
+
 }
-

@@ -1,6 +1,6 @@
 package validate;
 
-public class ValidacionExtensionFile extends ValidacionListOfValues implements ValidacionFileName.IValidacion {
+public class ValidacionExtensionFile extends ValidacionListOfValues implements IValidacion {
 
 
     private String value;
@@ -10,16 +10,15 @@ public class ValidacionExtensionFile extends ValidacionListOfValues implements V
     public ValidacionExtensionFile(String value,String [] listaExtension) {
         this.value = value;
         this.lista_extension =  listaExtension;
-
     }
 
     @Override
     public boolean validar() {
-        return super.validar(lista_extension,value);
+        return super.validar(value, lista_extension);
     }
 
     @Override
     public String getError() {
-        return null;
+        return error;
     }
 }

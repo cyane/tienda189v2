@@ -1,6 +1,6 @@
 package validate;
 
-public class ValidacionSexo extends  ValidacionListOfValues implements ValidacionFileName.IValidacion {
+public class ValidacionSexo extends  ValidacionListOfValues implements IValidacion {
     private static final String [] valores  = {"Hombre" , "Mujer"};
 
     private static final String error = "El  valor no esta en la lista";
@@ -13,7 +13,7 @@ public class ValidacionSexo extends  ValidacionListOfValues implements Validacio
 
     @Override
     public boolean validar(){
-        return super.validar(valores,value);
+        return super.validar(value,valores);
     }
 
     @Override

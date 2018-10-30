@@ -1,6 +1,6 @@
 package validate;
 
-public class ValidacionCadenaConEspacio extends ValidacionRegularExpression implements ValidacionFileName.IValidacion {
+public class ValidacionCadenaConEspacio extends ValidacionRegularExpression implements IValidacion {
 
     private static final String patron = "w.*";
 

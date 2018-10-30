@@ -34,16 +34,16 @@
     </div>
 </c:if>
 <div class="contenido01">
-    <form id="client_register" method="POST" action="/vali">
+    <form id="client_register" method="POST" action="/valiCliIn">
         <div class="menu s3 caja03">
             <h4>New Client</h4>
             <div id="div_clientFirstName">
                 <label class="labelInput" for="clientFirstName">First name:</label>
-                <input class="etiqueta s8" id="clientFirstName" type="text" data-functioncallback="ValidacionExpresionRegular.validarLetrasSinEspacio" size="24" minlength="3" maxlength="80" required placeholder="input your FirstName" title="3 to 50 characters">
+                <input class="etiqueta s8" id="clientFirstName" name ="clientFirstName" type="text" data-functioncallback="ValidacionExpresionRegular.validarLetrasConEspacio" size="24" minlength="3" maxlength="80" required placeholder="input your FirstName" title="3 to 50 characters">
             </div>
             <div id="div_clientLastName">
                 <label class="labelInput" for="clientLastName">Last name:</label>
-                <input class="etiqueta s8" id="clientLastName" type="text" data-functioncallback="ValidacionExpresionRegular.validarLetrasConEspacio" minlength="5" maxlength="100" required placeholder="input your LastName" title="3 to 70 characters">
+                <input class="etiqueta s8" id="clientLastName" name="clientLastName"  type="text" data-functioncallback="ValidacionExpresionRegular.validarLetrasConEspacio" minlength="5" maxlength="100" required placeholder="input your LastName" title="3 to 70 characters">
             </div>
             <div class="etiqueta errorColor" id="alertaError">Error:</div>
             <button id="submit" type="submit">Enviar</button>

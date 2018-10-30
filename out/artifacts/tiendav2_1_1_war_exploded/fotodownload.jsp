@@ -44,7 +44,7 @@
             <div class="fileinputs etiqueta s8" id="div_clientImage">
                 <input class="etiqueta s8 file" id="clientImage" type="file" name="clientImage" data-functioncallback="ValidarFicheroName.validarImagenName" required accept="image/png, image/jpeg" placeholder="input your Avatar" title="3 to 120 characters">
                 <div class="fakefile">
-                    <label class="labelInput" for="clientImage">Elije tu foto</label>
+                    <label class="labelInput" for="idFile">Elije tu foto</label>
                     <input id="idFile" name="myFile">
                 </div>
             </div>

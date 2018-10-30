@@ -28,7 +28,7 @@ public class fotodownload extends HttpServlet {
                         .replace("\"", "");
             }
         }
-        return "foto.jpg";
+        return "fotoSin.jpg";
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
@@ -42,38 +42,56 @@ public class fotodownload extends HttpServlet {
         String fileName;
 
         String dniCliente = request.getParameter("dniCliente");
-        System.out.println("dniCliente antes: " + dniCliente);
+        System.out.println("dniCliente: " + dniCliente);
 
         String clientImage = request.getParameter("clientImage");
+        // null Problem: Retrieves <input type="file" name="file"> request.getPart
         System.out.println("clientImage: " + clientImage);
+
+        Part filePart = request.getPart("clientImage");
+        // Retrieves <input type="file" name="file">
+        System.out.println("filePart: " + filePart);
 
         String myFile = request.getParameter("myFile");
         System.out.println("myFile: " + myFile);
-
-        Part filePart = request.getPart("myFile");
         System.out.println("myFile.length(): " + myFile.length());
+
+        clientImage = getFileName(filePart);
+
+        System.out.println("clientImage filePart: " + clientImage);
 
         if (myFile.length() > 2) {
 
             fileName = dniCliente + ".png";
 
-            Path path = Paths.get("img/fotos");
+            Path path = Paths.get("img/fotoClient/");
 
             if(!Files.exists(path)) {
                 try {
                     Files.createDirectories(path);
+                    System.out.println("img/fotoClient: Create ");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
+            FileOutputStream fs = new FileOutputStream(new File(path + fileName));
+            BufferedOutputStream buf = new BufferedOutputStream(fs);
 
-          //FileOutputStream fs = new FileOutputStream(new File(path + fileName));
-          //BufferedOutputStream buf = new BufferedOutputStream(fs);
+            InputStream fileContent = filePart.getInputStream();
+            BufferedInputStream bufIN = new BufferedInputStream(fileContent);
 
-            //InputStream fileContent = filePart.getInputStream();
-            // BufferedInputStream bufIN = new BufferedInputStream(fileContent);
+            byte[] buffer = new byte[8 * 1024];
+            int bytesRead;
+            while ((bytesRead = bufIN.read(buffer)) != -1) {
+                buf.write(buffer, 0, bytesRead);
+                System.out.println("Subiendo Imagen");
+            }
 
+            buf.close();
+            bufIN.close();
+
+            response.setHeader("Refresh", "0; URL=http://localhost:8080/index.jsp");
         }
     }
 }

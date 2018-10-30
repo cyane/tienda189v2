@@ -1,6 +1,6 @@
 package validate;
 
-public class ValidacionFileName {
+public class ValidacionMultiValidation {
     private String error;
 
     protected boolean validar(IValidacion validadores[]) {

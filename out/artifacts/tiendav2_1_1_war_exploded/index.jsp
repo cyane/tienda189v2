@@ -7,13 +7,40 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+
   <head>
-    <title>$Title$</title>
+    <title>Tienda Harnina</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1, user-scalable=no">
+    <link type="text/css" rel="stylesheet" href="../css/catalogoEstilo.css">
+    <link type="text/css" rel="stylesheet" href="../css/miscontenedores.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
   </head>
   <body>
-    <form id="client_register" method="get" action="/valida">
-      <input class="etiqueta s8"  name="clientFirstName" type="text" data-functioncallback="ValidacionExpresionRegular.validarLetrasSinEspacio" size="24" minlength="3" maxlength="80" required placeholder="input your FirstName" title="3 to 50 characters">
-      <input type="submit" value="Submit">
-    </form>
+  <header class="cabecera"><a class="subtitulo" href="catalogo.html">DAM: ACCESO A DATOS</a>
+    <h5 class="titulo">Tienda Harnina</h5>
+  </header>
+  <div class="contenido01">
+    <div class="medio dadoCatalogo">
+      <div class="dado d1 informatica"></div>
+    </div>
+    <div class="medio dadoCatalogo">
+      <div class="dado d3 harnina"></div>
+    </div>
+  </div>
+
+<div><a href="clientInsert.jsp">Añadir Cliente</a></div>
+
   </body>
 </html>
+
+<script src="../js/jscss/dado.js"></script>
+<script src="../js/jsStore/store.js"></script>
+<script src="../js/jsStore/prefijos.js"></script>
+<script src="../js/jsStore/color.js"></script>
+<script src="../js/jsStore/lista.js"></script>
+<script src="../js/jsStore/file.js"></script>
+<script src="../js/jsStore/error.js"></script>
+<script src="../js/jsStore/submit.js"></script>
+<script src="../js/jsStore/validate.js"></script>
+<script src="../js/jsStore/init.js"></script>

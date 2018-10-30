@@ -10,7 +10,7 @@ public class ValidarPrueba {
         ValidacionImagenNombre  validacionImagenNombre = new  ValidacionImagenNombre("luciano.png");
         System.out.println( validacionImagenNombre.validar());
         System.out.println( validacionImagenNombre.getError());
-}
+    }
 }
 
 

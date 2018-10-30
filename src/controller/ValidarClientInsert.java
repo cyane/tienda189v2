@@ -13,20 +13,26 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-@WebServlet("/vali")
+@WebServlet("/valiCliIn")
 public class ValidarClientInsert extends HttpServlet {
     private static final long serialVersionUID = 1L;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.println("TestServlet says hi<br/>");
-        RequestDispatcher rd = request.getRequestDispatcher("clientInsert.jsp");
-        String clientFirstName = request.getParameter("clientFirstName");
-        request.setAttribute("error", "ERROR con el nombre del cliente");
-        rd.forward(request, response);
 
-           // ValidacionCadenaSinEspacio validacionCadenaSinEspacio = new ValidacionCadenaSinEspacio(clientFirstName);
-        //   System.out.println(validacionCadenaSinEspacio.validar(validacionCadenaSinEspacio.getPatron(),validacionCadenaSinEspacio.getValue()));
+        response.setContentType("text/html");
+
+        PrintWriter out = response.getWriter();
+        //out.println("TestServlet says hi<br/>");
+        RequestDispatcher rd = request.getRequestDispatcher("clientInsert.jsp");
+
+        String clientFirstName = request.getParameter("clientFirstName");
+
+        ValidacionCadenaSinEspacio validacionCadenaSinEspacio = new ValidacionCadenaSinEspacio(clientFirstName);
+
+        if (!validacionCadenaSinEspacio.validar()) {
+            request.setAttribute("error", validacionCadenaSinEspacio.getError());
+        }
+
+        rd.forward(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

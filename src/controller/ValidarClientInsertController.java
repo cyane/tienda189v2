@@ -3,6 +3,7 @@ package controller;
 
 
 import validate.ValidacionCadenaSinEspacio;
+import validate.ValidacionDNINIECIF;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @WebServlet("/valiCliIn")
-public class ValidarClientInsert extends HttpServlet {
+public class ValidarClientInsertController extends HttpServlet {
     private static final long serialVersionUID = 1L;
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -30,6 +31,14 @@ public class ValidarClientInsert extends HttpServlet {
 
         if (!validacionCadenaSinEspacio.validar()) {
             request.setAttribute("error", validacionCadenaSinEspacio.getError());
+        }
+
+        String dniCliente = request.getParameter("dniCliente");
+
+        ValidacionDNINIECIF validacionDNINIECIF = new ValidacionDNINIECIF(dniCliente);
+
+        if(!validacionDNINIECIF.validar()){
+            request.setAttribute("error", validacionDNINIECIF.getError());
         }
 
         rd.forward(request, response);

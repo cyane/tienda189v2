@@ -45,6 +45,10 @@
                 <label class="labelInput" for="clientLastName">Last name:</label>
                 <input class="etiqueta s8" id="clientLastName" name="clientLastName"  type="text" data-functioncallback="ValidacionExpresionRegular.validarLetrasConEspacio" minlength="5" maxlength="100" required placeholder="input your LastName" title="3 to 70 characters">
             </div>
+            <div id="div_dniCliente">
+            <label for="dniCliente">dni:</label>
+            <input class="etiqueta s8" id="dniCliente" name = "dniCliente" type="text" data-functioncallback="ValidacionExpresionRegular.validarDni" required placeholder="input your dni" title="dni">
+        </div>
             <div class="etiqueta errorColor" id="alertaError">Error:</div>
             <button id="submit" type="submit">Enviar</button>
         </div>

@@ -10,9 +10,7 @@ import java.io.*;
 
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.logging.Level;
 
 @WebServlet("/foto")
@@ -50,9 +48,13 @@ public class fotodownload extends HttpServlet {
 
         Part filePart = request.getPart("clientImage");
         // Retrieves <input type="file" name="file">
+
+
+
         System.out.println("filePart: " + filePart);
 
         String myFile = request.getParameter("myFile");
+        File fileOrigen = new File(myFile);
         System.out.println("myFile: " + myFile);
         System.out.println("myFile.length(): " + myFile.length());
 
@@ -64,7 +66,9 @@ public class fotodownload extends HttpServlet {
 
             fileName = dniCliente + ".png";
 
+
             Path path = Paths.get("img/fotoClient/");
+            Path pathOrigen = fileOrigen.toPath();
 
             if(!Files.exists(path)) {
                 try {
@@ -75,7 +79,9 @@ public class fotodownload extends HttpServlet {
                 }
             }
 
-            FileOutputStream fs = new FileOutputStream(new File(path + fileName));
+            Files.copy(pathOrigen,path, StandardCopyOption.REPLACE_EXISTING);
+            System.out.println("FileOutputStream: "+ path + fileName);
+            /*FileOutputStream fs = new FileOutputStream(new File(path + fileName));
             BufferedOutputStream buf = new BufferedOutputStream(fs);
 
             InputStream fileContent = filePart.getInputStream();
@@ -90,7 +96,7 @@ public class fotodownload extends HttpServlet {
 
             buf.close();
             bufIN.close();
-
+*/
             response.setHeader("Refresh", "0; URL=http://localhost:8080/index.jsp");
         }
     }

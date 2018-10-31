@@ -57,7 +57,7 @@
 </html>
 <script src="../js/jscss/dado.js"></script>
 <script src="../js/jsStore/store.js"></script>
-<script src="../js/jsStore/prefijos.js"></script>
+
 <script src="../js/jsStore/color.js"></script>
 <script src="../js/jsStore/lista.js"></script>
 <script src="../js/jsStore/file.js"></script>

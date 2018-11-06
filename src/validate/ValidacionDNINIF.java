@@ -10,7 +10,9 @@ public class ValidacionDNINIF implements IValidacion{
     @Override
     public boolean validar() {
 
-        String letraMayuscula = "";
+        String letraMayuscula = (this.dni.substring(8)).toUpperCase();
+
+        String losNumeros = this.dni.substring(0,8);
 
         if(dni.length() != 9 || Character.isLetter(this.dni.charAt(8)) == false ) {
 
@@ -18,9 +20,8 @@ public class ValidacionDNINIF implements IValidacion{
 
             return false;
         }
-        letraMayuscula = (this.dni.substring(8)).toUpperCase();
 
-        if(solo8Numeros() == true && getLetraDNI().equals(letraMayuscula)) {
+        if(soloNumeros(losNumeros) == true && getLetraDNI().equals(letraMayuscula)) {
 
             return true;
         }
@@ -34,32 +35,32 @@ public class ValidacionDNINIF implements IValidacion{
         return mensajeError;
     }
 
-    private boolean solo8Numeros() {
+    private boolean soloNumeros(String cadena) {
 
         int i, j = 0;
 
-        String miDNI = "";
+        int cuenta = 0;
 
         String unNumero = "";
 
         String[] numeros = {"0","1","2","3","4","5","6","7","8","9"};
 
-        for(i = 0; i < this.dni.length() - 1; i++) {
+        for(i = 0; i < cadena.length(); i++) {
 
-            unNumero = this.dni.substring(i, i+1);
+            unNumero = cadena.substring(i, i+1);
 
             for(j = 0; j < numeros.length; j++) {
                 if(unNumero.equals(numeros[j])) {
-                    miDNI += numeros[j];
+                    cuenta++;
                 }
             }
         }
-
-        if(miDNI.length() != 8) {
+        if(cuenta != cadena.length()) {
             return false;
         }
         return true;
     }
+
     private String getLetraDNI() {
 
         int miDNI = Integer.parseInt(this.dni.substring(0,8));

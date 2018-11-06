@@ -21,7 +21,7 @@ public class ValidacionImagenNombre extends ValidacionMultiValidation implements
 
         String extension = new String(value.substring(value.lastIndexOf('.') + 1));
 
-        IValidacion [] validadores = {new ValidacionExtensionFile(extension,this.lista) ,new ValidacionCadenaSinEspacio(nombreImagen)};
+        IValidacion [] validadores = {new ValidacionExtensionFile(extension,this.lista) ,new ValidacionLetrasSinEspacio(nombreImagen)};
 
         return super.validar(validadores);
 

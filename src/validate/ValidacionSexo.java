@@ -1,7 +1,7 @@
 package validate;
 
 public class ValidacionSexo extends  ValidacionListOfValues implements IValidacion {
-    private static final String [] valores  = {"Hombre" , "Mujer"};
+    private static final String [] valores  = {"m" , "f"};
 
     private static final String error = "El  valor no esta en la lista";
 

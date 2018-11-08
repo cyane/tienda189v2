@@ -1,25 +1,27 @@
 package prueba;
 
+import dao.clienteDAO.ClienteDAO;
+
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AccesoDB {
 
-    public static void main(String [] args){
+    public static void main(String [] args) throws SQLException, ClassNotFoundException {
 
-         dao.AccesoDB acceso = null;
-         acceso = dao.AccesoDB.getMiConexion();
+        ClienteDAO clienteDAO  =  new ClienteDAO();
+        System.out.println("INSERT:"+clienteDAO.add_cliente_procedure());
 
-        try {
-                acceso.conectar("com.mysql.jdbc.Driver",
-                        "jdbc:mysql://localhost/pagina2018vista?useInformationSchema=true",
-                        "root","");
-        } catch (ClassNotFoundException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+/*
+        ArrayList<String> provincias = new ArrayList<String>();
+
+        for (String s : provincias = clienteDAO.getProvincias()) {
+            System.out.println(s + "\n");
         }
+
+*/
+
+
 
     }
 }

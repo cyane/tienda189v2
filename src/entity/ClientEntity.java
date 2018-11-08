@@ -16,6 +16,26 @@ public class ClientEntity {
     private String UsuarioCliente; // varchar(7)
     private String PasswordCliente; // varchar(50)
 
+    public ClientEntity(){
+
+    }
+
+    public ClientEntity(String nifCliente, String apellidosCliente, String nombreCliente, String codigoPostalClient, String domicilioCliente, String fechaNacimiento, String telefonoCliente, String movilCliente, String sexoCliente, String emailCliente, String imagenCliente, String usuarioCliente, String passwordCliente) {
+        NifCliente = nifCliente;
+        ApellidosCliente = apellidosCliente;
+        NombreCliente = nombreCliente;
+        CodigoPostalClient = codigoPostalClient;
+        DomicilioCliente = domicilioCliente;
+        FechaNacimiento = fechaNacimiento;
+        TelefonoCliente = telefonoCliente;
+        MovilCliente = movilCliente;
+        SexoCliente = sexoCliente;
+        EmailCliente = emailCliente;
+        ImagenCliente = imagenCliente;
+        UsuarioCliente = usuarioCliente;
+        PasswordCliente = passwordCliente;
+    }
+
     public String getNifCliente() {
         return NifCliente;
     }

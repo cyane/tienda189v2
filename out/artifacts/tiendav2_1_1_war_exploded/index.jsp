@@ -30,6 +30,11 @@
   </div>
 
 <div><a href="clientInsert.jsp">Añadir Cliente</a></div>
+  <c:if test="${not empty error}">
+    <div class="etiqueta s8">
+        ${mensaje}
+    </div>
+  </c:if>
 
   </body>
 </html>

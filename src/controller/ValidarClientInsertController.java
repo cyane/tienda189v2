@@ -1,5 +1,6 @@
 package controller;
 
+import dao.clienteDAO.ClienteDAO;
 import entity.ClientEntity;
 import validate.*;
 
@@ -73,37 +74,44 @@ public class ValidarClientInsertController extends HttpServlet {
                         if(!(error.length() > 0)){
                             validador.clear();
                             cliente.setTelefonoCliente(request.getParameter("TelefonoFijo"));
+                            session.setAttribute("TelefonoFijo",cliente.getTelefonoCliente());
                             validador.add(new ValidacionTelefonoSpain(cliente.getTelefonoCliente()));
                             error += validar(validador);
                             if(!(error.length() > 0)){
                                 validador.clear();
                                 cliente.setMovilCliente(request.getParameter("numeroMovil"));
+                                session.setAttribute("numeroMovil",cliente.getMovilCliente());
                                 validador.add(new ValidacionTelefonoSpain(cliente.getMovilCliente()));
                                 error += validar(validador);
                                 if(!(error.length() > 0)){
                                     validador.clear();
                                     cliente.setFechaNacimiento(request.getParameter("FechaNacimiento"));
+                                    session.setAttribute("FechaNacimiento",cliente.getFechaNacimiento());
                                     validador.add(new ValidacionFecha(cliente.getFechaNacimiento()));
                                     error += validar(validador);
                                     if(!(error.length() > 0)){
                                         validador.clear();
                                         cliente.setSexoCliente(request.getParameter("clientSexo"));
+                                        session.setAttribute("clientSexo",cliente.getSexoCliente());
                                         validador.add(new ValidacionSexo(cliente.getSexoCliente()));
                                         error += validar(validador);
                                         if(!(error.length() > 0)){
                                             validador.clear();
                                             cliente.setEmailCliente(request.getParameter("emailCliente"));
+                                            session.setAttribute("emailCliente",cliente.getEmailCliente());
                                             validador.add(new ValidacionEmail(cliente.getEmailCliente()));
                                             error += validar(validador);
                                         }
                                         if(!(error.length() > 0)){
                                             validador.clear();
                                             cliente.setUsuarioCliente(request.getParameter("clientUsuario"));
+                                            session.setAttribute("clientUsuario",cliente.getUsuarioCliente());
                                             validador.add(new ValidacionUsuario(cliente.getUsuarioCliente()));
                                             error += validar(validador);
                                             if(!(error.length() > 0)){
                                                 validador.clear();
                                                 cliente.setPasswordCliente(request.getParameter("password"));
+                                                session.setAttribute("password",cliente.getPasswordCliente());
                                                 validador.add(new ValidacionPassword(cliente.getPasswordCliente()));
                                                 error += validar(validador);
                                             }
@@ -126,6 +134,15 @@ public class ValidarClientInsertController extends HttpServlet {
             clientFotoLoad(request,response);
             cliente.setImagenCliente(cliente.getNifCliente() + ".png");
             System.out.println(cliente.toString());
+            rd = request.getRequestDispatcher("index.jsp");
+          //    cliente para BD
+            ClienteDAO clienteDAO = new ClienteDAO();
+           if (clienteDAO.add_cliente(cliente)>0){
+               request.setAttribute("mensaje", "Cliente add");
+           }
+           else request.setAttribute("mensaje", "Cliente NO add");
+
+
         }
 
         rd.forward(request, response);

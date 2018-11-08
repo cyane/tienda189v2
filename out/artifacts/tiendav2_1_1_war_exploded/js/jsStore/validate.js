@@ -102,7 +102,7 @@ STORE.namespace('STORE.ValidacionUtil');
             return true;
         },
 
-        ValidarLetraDNI: function(dni) {
+        validarLetraDNI: function(dni) {
 
             var letra_dni = dni.substr(8,1);
 
@@ -115,6 +115,31 @@ STORE.namespace('STORE.ValidacionUtil');
             var letra = letras[resto];
 
             return (letra == letra_dni);
+        },
+
+        estrategiaUnoAUno :  function (valido, parametro) {
+
+            if (valido) {
+
+                parametro.nodo.style.backgroundColor = STORE.Color.colorValido;
+
+                STORE.Error.off();
+
+                STORE.Submit.on();
+
+                STORE.Lista.next(parametro.nodo);
+
+            } else {
+
+                STORE.Error.set_message(parametro.mensajeError);
+
+                parametro.nodo.style.backgroundColor = STORE.Error.get_colorError();
+
+                STORE.Error.on();
+
+                STORE.Submit.off();
+            }
+
         }
     }
 })(window)
@@ -166,7 +191,7 @@ STORE.namespace('STORE.ValidacionExpresionRegular');
                 STORE.ValidacionUtil.valorarConsecuencia(false,parametro);
             }
 
-            STORE.ValidacionUtil.valorarConsecuencia( (STORE.ValidacionUtil.validarTodoNumeros(los8numeros) == true && STORE.ValidacionUtil.ValidarLetraDNI(parametro.nodo.value)) , parametro);
+            STORE.ValidacionUtil.valorarConsecuencia( (STORE.ValidacionUtil.validarTodoNumeros(los8numeros) == true && STORE.ValidacionUtil.validarLetraDNI(parametro.nodo.value)) , parametro);
         },
 
         validarDniNieCif : function (evt) {
@@ -179,7 +204,7 @@ STORE.namespace('STORE.ValidacionExpresionRegular');
 
            if( parametro.nodo.value.length == 9 && parametro.nodo.value.substr(8,1) ) {
 
-               if (STORE.ValidacionUtil.validarTodoNumeros(los8numeros) && STORE.ValidacionUtil.ValidarLetraDNI(parametro.nodo.value)){
+               if (STORE.ValidacionUtil.validarTodoNumeros(los8numeros) && STORE.ValidacionUtil.validarLetraDNI(parametro.nodo.value)){
 
                    STORE.ValidacionUtil.valorarConsecuencia(true,parametro);
                    return true;
@@ -569,6 +594,59 @@ STORE.namespace('STORE.ValidarFicheroName');
             } else {
 
                    STORE.ValidacionUtil.valorarConsecuencia(false,parametro);
+            }
+        }
+
+
+    }
+
+})(window)
+
+STORE.namespace('STORE.ValidarEstrategiaUnoAUno');
+(function(g) {
+
+    'use strict';
+
+    var parametro = {};
+
+    STORE.ValidarEstrategiaUnoAUno = {
+
+        validarImagenName : function(evt) {
+
+            parametro.nodo = evt.target;
+
+            var tipo = ['jpg', 'png'];
+
+            parametro.mensajeError = "ERROR:Selecciona nueva imagen:";
+
+            if (STORE.ValidacionUtil.validarListaValores(STORE.File.getFileExtensionFromURI(parametro.nodo.value), tipo)){
+
+                parametro.patron = "^([a-zA-ZñÑáéíóúÁÉÍÓÚ0_9\\\:\.\/])"; //"(?:\w+:)?\/\/[^/]+([^?#]+)";  //"^([a-zA-Z]:)?(\\{2}|\/)?([a-zA-Z0-9\\s_@-^!#$%&+={}\[\]]+(\\{2}|\/)?)+(\.jpg|\.png+)?$";
+
+                parametro.mensajeError += " Cualquier caracter ";
+
+                if( STORE.ValidacionUtil.validarExpRegular(parametro))
+                {
+                    parametro.patron = "^([a-zA-ZñÑáéíóúÁÉÍÓÚ0_9\\s])";
+
+                    parametro.mensajeError = "ERROR:Letras y numeros con Espacio ";
+
+                    parametro.text = STORE.File.getFileNameFromURI(parametro.nodo.value);
+
+                    parametro.expregular = new RegExp( parametro.patron);
+
+                    STORE.ValidacionUtil.valorarConsecuencia(parametro.expregular.test(STORE.File.getFileNameFromURI(parametro.nodo.value)),parametro);
+
+                    $("idFile").value = parametro.nodo.value;
+                }
+                else {
+
+                    STORE.ValidacionUtil.valorarConsecuencia(false,parametro);
+                }
+
+            } else {
+
+                STORE.ValidacionUtil.valorarConsecuencia(false,parametro);
             }
         }
 

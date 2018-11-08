@@ -50,7 +50,7 @@
 
             <div id="div_clientFirstName">
                 <label class="labelInput" for="clientFirstName">Nombre:</label>
-                <input class="etiqueta s8" id="clientFirstName" name ="clientFirstName" value="<%= session.getAttribute("clientFirstName") %>" type="text" data-functioncallback="ValidacionExpresionRegular.validarLetrasConEspacio" size="24" minlength="3" maxlength="80" required placeholder="input your FirstName" title="3 to 50 characters">
+                <input class="etiqueta s8" id="clientFirstName" name ="clientFirstName" value="<%= (session.getAttribute("clientFirstName")!= "null")? session.getAttribute("clientFirstName"): "" %>" type="text" data-functioncallback="ValidacionExpresionRegular.validarLetrasConEspacio" size="24" minlength="3" maxlength="80" required placeholder="input your FirstName" title="3 to 50 characters">
             </div>
 
             <div id="div_clientLastName">

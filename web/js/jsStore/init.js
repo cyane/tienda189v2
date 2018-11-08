@@ -9,10 +9,13 @@ STORE.namespace('STORE.list_input');
 
     eval("div_" + STORE.list_input[0].id).style.display = '';
 
-    for (var i = 1; i < STORE.list_input.length; i++) {
+    if(document.getElementById("dniCliente").value == "null") {
 
-       eval("div_" + STORE.list_input[i].id).style.display = 'none';
+        for (var i = 1; i < STORE.list_input.length; i++) {
 
+            eval("div_" + STORE.list_input[i].id).style.display = 'none';
+
+        }
     }
     STORE.Error.off();
 
@@ -23,7 +26,12 @@ STORE.namespace('STORE.list_input');
     for (var i = 0; i < STORE.list_input.length; i++) {
 
         STORE.list_input[i].addEventListener("input",eval("STORE." + STORE.list_input[i].dataset.functioncallback),false);
-        STORE.list_input[i].style.backgroundColor = STORE.Error.get_colorError();
+
+              if(document.getElementById("dniCliente").value == "null"){
+            STORE.list_input[i].style.backgroundColor = STORE.Error.get_colorError();
+
+        }
+
 
     }
 

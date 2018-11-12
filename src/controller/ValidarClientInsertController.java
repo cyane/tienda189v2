@@ -1,6 +1,8 @@
 package controller;
 
 import dao.clienteDAO.ClienteDAO;
+import dao.clienteDAO.ClienteRoll;
+import dao.cp.CPDAO;
 import entity.ClientEntity;
 import validate.*;
 
@@ -10,6 +12,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.*;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -17,10 +20,10 @@ import java.util.List;
 @WebServlet("/valiCliIn")
 @MultipartConfig
 public class ValidarClientInsertController extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
+
     HttpSession session;
-
-
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -38,10 +41,11 @@ public class ValidarClientInsertController extends HttpServlet {
 
         RequestDispatcher rd = request.getRequestDispatcher("clientInsert.jsp");
 
+
         cliente.setNifCliente(request.getParameter("dniCliente"));
         session.setAttribute("dniCliente", cliente.getNifCliente());
         validador.add(new ValidacionDNINIECIF(cliente.getNifCliente()));
-        error += validar(validador);
+        error +=  ValidacionMultiValidation.validar(validador);
 
         if(!(error.length() > 0)){
             validador.clear();
@@ -49,7 +53,7 @@ public class ValidarClientInsertController extends HttpServlet {
             session.setAttribute("clientFirstName", cliente.getNombreCliente());
             validador.add(new ValidacionLetrasConEspacio(cliente.getNombreCliente()));
             validador.add(new ValidacionLongitud(cliente.getNombreCliente(),3,50));
-            error += validar(validador);
+            error +=  ValidacionMultiValidation.validar(validador);
 
             if(!(error.length() > 0)){
                 validador.clear();
@@ -57,63 +61,64 @@ public class ValidarClientInsertController extends HttpServlet {
                 session.setAttribute("clientLastName", cliente.getApellidosCliente());
                 validador.add(new ValidacionLetrasConEspacio(cliente.getApellidosCliente()));
                 validador.add(new ValidacionLongitud(cliente.getApellidosCliente(),3,100));
-                error += validar(validador);
+                error +=  ValidacionMultiValidation.validar(validador);
                 if(!(error.length() > 0)){
                     validador.clear();
                     cliente.setCodigoPostalClient(request.getParameter("clientCP"));
                     session.setAttribute("clientCP", cliente.getCodigoPostalClient());
                     validador.add(new ValidacionCodigoPostal(cliente.getCodigoPostalClient()));
-                    error += validar(validador);
+                    error +=  ValidacionMultiValidation.validar(validador);
                     if(!(error.length() > 0)){
                         validador.clear();
                         cliente.setDomicilioCliente(request.getParameter("DomicilioCliente"));
                         session.setAttribute("DomicilioCliente", cliente.getDomicilioCliente());
                         validador.add(new ValidarDomicilio(cliente.getDomicilioCliente()));
                         validador.add(new ValidacionLongitud(cliente.getDomicilioCliente(),2,100));
-                        error += validar(validador);
+                        error +=  ValidacionMultiValidation.validar(validador);
                         if(!(error.length() > 0)){
                             validador.clear();
                             cliente.setTelefonoCliente(request.getParameter("TelefonoFijo"));
                             session.setAttribute("TelefonoFijo",cliente.getTelefonoCliente());
                             validador.add(new ValidacionTelefonoSpain(cliente.getTelefonoCliente()));
-                            error += validar(validador);
+                            error +=  ValidacionMultiValidation.validar(validador);
                             if(!(error.length() > 0)){
                                 validador.clear();
                                 cliente.setMovilCliente(request.getParameter("numeroMovil"));
                                 session.setAttribute("numeroMovil",cliente.getMovilCliente());
                                 validador.add(new ValidacionTelefonoSpain(cliente.getMovilCliente()));
-                                error += validar(validador);
+                                error +=  ValidacionMultiValidation.validar(validador);
                                 if(!(error.length() > 0)){
                                     validador.clear();
                                     cliente.setFechaNacimiento(request.getParameter("FechaNacimiento"));
                                     session.setAttribute("FechaNacimiento",cliente.getFechaNacimiento());
                                     validador.add(new ValidacionFecha(cliente.getFechaNacimiento()));
-                                    error += validar(validador);
+                                    error +=  ValidacionMultiValidation.validar(validador);
                                     if(!(error.length() > 0)){
                                         validador.clear();
                                         cliente.setSexoCliente(request.getParameter("clientSexo"));
                                         session.setAttribute("clientSexo",cliente.getSexoCliente());
+
                                         validador.add(new ValidacionSexo(cliente.getSexoCliente()));
-                                        error += validar(validador);
+                                        error +=  ValidacionMultiValidation.validar(validador);
                                         if(!(error.length() > 0)){
                                             validador.clear();
                                             cliente.setEmailCliente(request.getParameter("emailCliente"));
                                             session.setAttribute("emailCliente",cliente.getEmailCliente());
                                             validador.add(new ValidacionEmail(cliente.getEmailCliente()));
-                                            error += validar(validador);
+                                            error +=  ValidacionMultiValidation.validar(validador);
                                         }
                                         if(!(error.length() > 0)){
                                             validador.clear();
                                             cliente.setUsuarioCliente(request.getParameter("clientUsuario"));
                                             session.setAttribute("clientUsuario",cliente.getUsuarioCliente());
                                             validador.add(new ValidacionUsuario(cliente.getUsuarioCliente()));
-                                            error += validar(validador);
+                                            error +=  ValidacionMultiValidation.validar(validador);
                                             if(!(error.length() > 0)){
                                                 validador.clear();
                                                 cliente.setPasswordCliente(request.getParameter("password"));
                                                 session.setAttribute("password",cliente.getPasswordCliente());
                                                 validador.add(new ValidacionPassword(cliente.getPasswordCliente()));
-                                                error += validar(validador);
+                                                error +=  ValidacionMultiValidation.validar(validador);
                                             }
                                         }
                                     }
@@ -125,7 +130,17 @@ public class ValidarClientInsertController extends HttpServlet {
                 }
             }
         }
+        ClienteRoll clienteRoll = new ClienteRoll();
+        CPDAO cpdao = new CPDAO(clienteRoll.getUsuario(),clienteRoll.getPass());
 
+        try {
+            if(!cpdao.check_cp(cliente.getCodigoPostalClient())){
+
+                error = "Codigo Postal Inexistente";
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         if (error.length() > 0){
             request.setAttribute("error", error);
@@ -135,13 +150,22 @@ public class ValidarClientInsertController extends HttpServlet {
             cliente.setImagenCliente(cliente.getNifCliente() + ".png");
             System.out.println(cliente.toString());
             rd = request.getRequestDispatcher("index.jsp");
-          //    cliente para BD
+
+            /*
+          //    cliente para BD sin procedure
             ClienteDAO clienteDAO = new ClienteDAO();
            if (clienteDAO.add_cliente(cliente)>0){
                request.setAttribute("mensaje", "Cliente add");
            }
            else request.setAttribute("mensaje", "Cliente NO add");
+           */
 
+            //    cliente para BD CON procedure
+            ClienteDAO clienteDAO = new ClienteDAO();
+            if (clienteDAO.add_cliente_procedure(cliente)){
+                request.setAttribute("mensaje", "Cliente add");
+            }
+            else request.setAttribute("mensaje", "Cliente NO add");
 
         }
 
@@ -152,16 +176,7 @@ public class ValidarClientInsertController extends HttpServlet {
         doPost(request, response);
     }
 
-    private String validar(List<IValidacion> validador ) {
 
-        for(IValidacion vali:validador){
-           //System.out.println(vali);
-            if (!vali.validar()) {
-                return vali.getError();
-            }
-        }
-        return "";
-    }
     private String getFileName(Part part) {
         for (String cd : part.getHeader("content-disposition").split(";")) {
             if (cd.trim().startsWith("filename")) {
@@ -205,6 +220,7 @@ public class ValidarClientInsertController extends HttpServlet {
             bufIN.close();
         }
     }
+
 
     private void listParam(HttpServletRequest request, HttpServletResponse response ) throws IOException {
 

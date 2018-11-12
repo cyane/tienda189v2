@@ -1,10 +1,14 @@
 package dao.clienteDAO;
 
 import entity.ClientEntity;
+import entity.CodigoPostalEntity;
+import entity.LoginClienteEntity;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 
 public class ClienteDAO {
 
@@ -53,12 +57,27 @@ public class ClienteDAO {
         }
     }
 
-   public boolean add_cliente_procedure() {
+   public boolean add_cliente_procedure (ClientEntity clientEntity) {
         try {
-            return clienteRoll.add_cliente("77777777","lopez lopez","lolo","06200");
+            return clienteRoll.add_cliente(clientEntity.getNifCliente(),clientEntity.getApellidosCliente(),clientEntity.getNombreCliente(), clientEntity.getCodigoPostalClient(),clientEntity.getDomicilioCliente(),clientEntity.getFechaNacimiento(), clientEntity.getTelefonoCliente(),clientEntity.getMovilCliente(),clientEntity.getSexoCliente(),clientEntity.getEmailCliente(), clientEntity.getImagenCliente(),clientEntity.getUsuarioCliente(),clientEntity.getPasswordCliente());
         } catch (SQLException e) {
             System.out.println("DAO false");
             return false;
         }
     }
+    public String  get_nif_login(LoginClienteEntity clientloginEntity) {
+
+       try
+       {
+           return clienteRoll.get_nif_login(clientloginEntity.getUsuario(),clientloginEntity.getPassword());
+       }
+       catch (Exception ignore)
+       {
+           // do something appropriate with the exception, *at least*:
+           //e.printStackTrace();
+       }
+       return "null";
+    }
+
+
 }

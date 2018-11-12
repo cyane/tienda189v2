@@ -33,7 +33,7 @@ public class AccesoDB {
             } else return;
         }
             //Cargar el driver reflexión
-        Class.forName(driver); // Ya no es neesario por la version
+        Class.forName(driver); // Ya no es necesario por la version
 
         if(user == null || password == null) conexion = (Connection) DriverManager.getConnection(dbName);
             else conexion = (Connection) DriverManager.getConnection(dbName,user,password);

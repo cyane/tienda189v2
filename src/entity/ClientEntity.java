@@ -21,19 +21,19 @@ public class ClientEntity {
     }
 
     public ClientEntity(String nifCliente, String apellidosCliente, String nombreCliente, String codigoPostalClient, String domicilioCliente, String fechaNacimiento, String telefonoCliente, String movilCliente, String sexoCliente, String emailCliente, String imagenCliente, String usuarioCliente, String passwordCliente) {
-        NifCliente = nifCliente;
-        ApellidosCliente = apellidosCliente;
-        NombreCliente = nombreCliente;
-        CodigoPostalClient = codigoPostalClient;
-        DomicilioCliente = domicilioCliente;
-        FechaNacimiento = fechaNacimiento;
-        TelefonoCliente = telefonoCliente;
-        MovilCliente = movilCliente;
-        SexoCliente = sexoCliente;
-        EmailCliente = emailCliente;
-        ImagenCliente = imagenCliente;
-        UsuarioCliente = usuarioCliente;
-        PasswordCliente = passwordCliente;
+       this.NifCliente = nifCliente;
+        this.ApellidosCliente = apellidosCliente;
+        this.NombreCliente = nombreCliente;
+        this.CodigoPostalClient = codigoPostalClient;
+        this.DomicilioCliente = domicilioCliente;
+        this.FechaNacimiento = fechaNacimiento;
+        this.TelefonoCliente = telefonoCliente;
+        this.MovilCliente = movilCliente;
+        this.SexoCliente = sexoCliente;
+        this.EmailCliente = emailCliente;
+        this.ImagenCliente = imagenCliente;
+        this.UsuarioCliente = usuarioCliente;
+        this.PasswordCliente = passwordCliente;
     }
 
     public String getNifCliente() {

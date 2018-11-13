@@ -11,6 +11,7 @@ import java.io.*;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.sql.SQLException;
 import java.util.logging.Level;
 
 @WebServlet("/foto")
@@ -36,26 +37,64 @@ public class fotodownload extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException,
             IOException {
+        Part filePart = request.getPart("clientImage");
+        String fileName = getFileName(filePart);
+        String dniCliente = request.getParameter("dniCliente");
 
+        if (fileName.length() > 2) {
+
+            fileName = dniCliente + ".png";
+
+            String path = getServletContext().getRealPath("img/fotoClient/");
+
+            File folder = new File(path);
+            if (!folder.exists()) {
+                folder.mkdirs();
+            }
+
+            FileOutputStream fs = new FileOutputStream(new File(path + fileName));
+            BufferedOutputStream buf = new BufferedOutputStream(fs);
+
+            InputStream fileContent = filePart.getInputStream();
+            BufferedInputStream bufIN = new BufferedInputStream(fileContent);
+
+            byte[] buffer = new byte[8 * 1024];
+            int bytesRead;
+            while ((bytesRead = bufIN.read(buffer)) != -1) {
+                buf.write(buffer, 0, bytesRead);
+            }
+
+            buf.close();
+            bufIN.close();
+
+
+
+        }
+
+
+
+/*
         String fileName;
-
+        String clientImage;
         String dniCliente = request.getParameter("dniCliente");
         System.out.println("dniCliente: " + dniCliente);
 
-        String clientImage = request.getParameter("clientImage");
+        //clientImage = request.getParameter("clientImage");
         // null Problem: Retrieves <input type="file" name="file"> request.getPart
-        System.out.println("clientImage: " + clientImage);
+        //System.out.println("clientImage: " + clientImage);
 
         Part filePart = request.getPart("clientImage");
         // Retrieves <input type="file" name="file">
 
-
+        System.out.println("request.getContextPath() " + request.getContextPath());
 
         System.out.println("filePart: " + filePart);
 
         String myFile = request.getParameter("myFile");
-        File fileOrigen = new File(myFile);
         System.out.println("myFile: " + myFile);
+
+        File fileOrigen = new File(filePart.getName());
+
         System.out.println("myFile.length(): " + myFile.length());
 
         clientImage = getFileName(filePart);
@@ -99,5 +138,5 @@ public class fotodownload extends HttpServlet {
 */
             response.setHeader("Refresh", "0; URL=http://localhost:8080/index.jsp");
         }
-    }
+
 }

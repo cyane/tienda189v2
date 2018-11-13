@@ -1,5 +1,7 @@
 package validate;
 
+import java.util.List;
+
 public class ValidacionMultiValidation {
     private String error;
 
@@ -15,6 +17,17 @@ public class ValidacionMultiValidation {
             }
         }
         return true;
+    }
+
+    public static String validar(List<IValidacion> validador ) {
+
+        for(IValidacion vali:validador){
+
+            if (!vali.validar()) {
+                return vali.getError();
+            }
+        }
+        return "";
     }
 
     public String getError() {

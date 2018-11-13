@@ -29,18 +29,23 @@
     </div>
   </div>
 
-<div><a href="clientInsert.jsp">Añadir Cliente</a></div>
+
+  <c:if test="${not empty error}">
+    <div class="etiqueta s8">
+        ${mensaje}
+    </div>
+  </c:if>
+  <div class="contenedor01">
+
+    <div class="contenido01">
+      <div><a href="cliente/clientInsert.jsp">Añadir Cliente</a></div>
+      <div><a href="cliente/clientSesion.jsp">Iniciar Sesión</a></div>
+    </div>
+
+  </div>
 
   </body>
 </html>
 
 <script src="../js/jscss/dado.js"></script>
 <script src="../js/jsStore/store.js"></script>
-<script src="../js/jsStore/prefijos.js"></script>
-<script src="../js/jsStore/color.js"></script>
-<script src="../js/jsStore/lista.js"></script>
-<script src="../js/jsStore/file.js"></script>
-<script src="../js/jsStore/error.js"></script>
-<script src="../js/jsStore/submit.js"></script>
-<script src="../js/jsStore/validate.js"></script>
-<script src="../js/jsStore/init.js"></script>

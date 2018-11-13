@@ -43,7 +43,7 @@ public class ValidacionNIE implements IValidacion{
 
         if(esValido) {
             letra = Character.toUpperCase(nie.charAt(8));
-            miNIE = Integer.parseInt(nie.substring(1,8));
+            miNIE = Integer.parseInt(nie.substring(0,8));
             resto = miNIE % 23;
             esValido = (letra == asignacionLetra[resto]);
         }
